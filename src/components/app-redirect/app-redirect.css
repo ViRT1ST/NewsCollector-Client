@@ -1,0 +1,30 @@
+/* ========================================================== */
+/* Redirect Page (If Page Not Found)                          */
+/* ========================================================== */
+
+.app-redirect {
+  color: var(--default-text-color);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: 50px 0;
+  z-index: 100;
+  top: 0;
+  background: var(--main-section-bg-color-or-image);
+  background-repeat: repeat;
+  opacity: 0.8;
+}
+
+.app-redirect > h1 {
+  display: block;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.app-redirect > p {
+  display: block;
+  text-align: center;
+  font-size: 1.5rem;
+}

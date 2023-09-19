@@ -1,0 +1,23 @@
+/* ========================================================== */
+/* App Message                                                */
+/* ========================================================== */
+
+.app-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 90px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.5;
+  white-space: pre-line;
+}
+
+.app-message > p {
+  margin: 0;
+  padding: 0;
+}

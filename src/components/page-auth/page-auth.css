@@ -1,0 +1,133 @@
+/* ========================================================== */
+/* Login & Registration Page                                  */
+/* ========================================================== */
+
+.login-page-container {
+  padding-top: 10%;
+  width: 100%;
+  min-height: 100%;
+  background: #eeeeee;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+.login-form-container {
+  padding: 20px 5%;
+  background: #eeeeee;
+}
+
+.login-form {
+  margin: 20px auto; 
+  padding: 20px 20px;
+  min-width: 320px;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 10px;
+  border-left: 5px solid #009688;
+}
+
+.login-form h1 {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  color: #212529;
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.login-form input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  background-color: #fff;
+  background-clip: padding-box;
+  color: #212529 !important;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: border-color .10s ease-in-out, box-shadow .10s ease-in-out
+}
+
+.login-form input:focus {
+  color: #212529;
+  background-color: #fff;
+  outline: 0;
+  border: 1px solid #86b7fe;
+  box-shadow: 0 0 0 4px rgba(13, 109, 252, 0.25)
+}
+
+.login-form input::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.login-form-submit-btn-wrapper {
+  text-align: right;
+}
+
+.login-form-submit-btn-wrapper button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 12px;
+  width: 45%;
+  background-color: transparent;
+  color: #198754;
+  border-radius: 4px;
+  border: 1px solid #198754;
+  user-select: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.5rem;
+  transition: border-color .10s ease-in-out, box-shadow .10s ease-in-out
+}
+
+.login-form-submit-btn-wrapper button:hover {
+  background-color: #198754;
+  color: #fff;
+}
+
+.login-form-submit-btn-wrapper button:focus {
+  /* outline: #8cc3a9 solid 4px; */
+  outline: 0;
+  color: #fff;
+  background-color: #157347;
+  border-color: rgb(20, 108, 67);
+  box-shadow: 0 0 0 .25rem rgba(61, 153, 110, 0.5)
+}
+
+.login-other-elements {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-other-elements a,
+.login-other-elements a:visited {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.login-other-elements a:hover {
+  text-decoration: underline;
+}
+
+.login-other-links {
+  color: #212529;
+}
+
+.login-error-message div {
+  padding: 8px 0 15px 0;
+  color: red;
+}
