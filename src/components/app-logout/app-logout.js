@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 
 
 function AppLogout() {
+  // there must be api request to remove token
   new Cookies().remove('token', { path: '/' });
   return <Navigate replace to="/login" />;
 }

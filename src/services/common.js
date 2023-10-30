@@ -1,6 +1,7 @@
 import Cookies from 'universal-cookie';
 
 function convertDateToAgo(isoTime) {
+
   const then = new Date(isoTime);
   const now = new Date();
 

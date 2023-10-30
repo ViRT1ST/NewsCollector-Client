@@ -1,7 +1,6 @@
 {
-  "name": "news-collector-node-v2-fe",
-  "version": "1.0.0",
-  "private": true,
+  "name": "news-collector-clent",
+  "version": "1.5.0",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -26,7 +25,6 @@
     "start": "webpack-dev-server --port 7001 --env mode=development",
     "build": "webpack --env mode=production"
   },
-  "proxy": "http://localhost:7002",
   "eslintConfig": {
     "extends": [
       "react-app",

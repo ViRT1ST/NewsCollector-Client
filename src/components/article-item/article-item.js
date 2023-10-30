@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 import { convertDateToAgo, animateWithSlideUp } from '../../services/common';
 
-function ArticleItem({ id, date, site, section, title, url, articleBtns, decrementCount }) {
+function ArticleItem({ _id, createdAt, site, section, title, url, articleBtns, decrementCount }) {
 
-  const timeAgo = convertDateToAgo(date);
+  const timeAgo = convertDateToAgo(createdAt);
 
   const btnsElements = articleBtns.map(({ label, classes, apiMethod }) => {
     return (
@@ -17,8 +17,8 @@ function ArticleItem({ id, date, site, section, title, url, articleBtns, decreme
         type="button"
         title={label}
         onClick={() => {
-          animateWithSlideUp(`[name='${id}']`);
-          apiMethod(id);
+          animateWithSlideUp(`[name='${_id}']`);
+          apiMethod(_id);
           decrementCount();
         }}
       />
@@ -26,7 +26,7 @@ function ArticleItem({ id, date, site, section, title, url, articleBtns, decreme
   });
 
   return (
-    <li name={id} className="news-list-item">
+    <li name={_id} className="news-list-item">
       <div className="news-list-item__container-a">
         <div className="news-list-item__time">{timeAgo}</div>
         <div className="news-list-item__site">{site} &middot; {section}</div>
@@ -40,8 +40,8 @@ function ArticleItem({ id, date, site, section, title, url, articleBtns, decreme
 }
 
 ArticleItem.propTypes = {
-  id: PropTypes.string,
-  date: PropTypes.string,
+  _id: PropTypes.string,
+  createdAt: PropTypes.string,
   site: PropTypes.string,
   section: PropTypes.string,
   title: PropTypes.string,

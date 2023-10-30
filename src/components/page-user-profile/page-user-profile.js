@@ -10,6 +10,7 @@ export default class PageUserProfile extends Component {
 
   state = {
     subscriptions: [],
+    subscriptionsChecked: [],
     password: '',
     loading: true,
     error: false
@@ -22,16 +23,18 @@ export default class PageUserProfile extends Component {
   }
 
   onCheckboxClick = (e) => {
-    const { subscriptions } = this.state;
+    let { subscriptionsChecked } = this.state;
 
-    const newArr = subscriptions.map((item) => {
-      return item._id === e.target.id
-        ? { ...item, is_subscribed: e.target.checked }
-        : item;
-    });
+    if (e.target.checked) {
+      subscriptionsChecked.push(e.target.id);
+    } else {
+      subscriptionsChecked = subscriptionsChecked.filter((item) => {
+        return item !== e.target.id;
+      });
+    }
 
     this.setState({
-      subscriptions: newArr
+      subscriptionsChecked
     });
   };
 
@@ -59,8 +62,10 @@ export default class PageUserProfile extends Component {
   };
 
   onFetchLoaded = (json) => {
+    // console.log(json.data);
     this.setState({
-      subscriptions: json.data.subscriptions,
+      subscriptionsChecked: json.data.user.subscriptions,
+      subscriptions: json.data.sources,
       password: '',
       loading: false
     });
@@ -69,32 +74,79 @@ export default class PageUserProfile extends Component {
   updateItems = () => {
     this.onFetchLoading();
 
-    this.apiService.getUserProfile()
-      .then(this.onFetchLoaded)
-      .catch(this.onFetchError);
+    let userData = {};
+    let sourcesData = {};
+    const allData = { data: {} };
+
+    const getUser = () => {
+      return new Promise((resolve, reject) => {
+        this.apiService.getUserProfile()
+          .then((data) => {
+            userData = data;
+            resolve();
+          })
+          .catch(() => {
+            reject();
+          });
+      });
+    };
+
+    const getSources = () => {
+      return new Promise((resolve, reject) => {
+        this.apiService.getSources()
+          .then((data) => {
+            sourcesData = data;
+            resolve();
+          })
+          .catch(() => {
+            reject();
+          });
+      });
+    };
+
+    Promise.all([getUser(), getSources()])
+      .then(() => {
+        console.log('Все промисы выполнились успешно.');
+        allData.data.user = userData.data;
+        allData.data.sources = sourcesData.data;
+        this.onFetchLoaded(allData);
+      })
+      .catch((error) => {
+        console.log('Не все промисы выполнились успешно.');
+        this.onFetchError(error);
+      });
+
+    // this.apiService.getUserProfile()
+    //   .then(this.onFetchLoaded)
+    //   .catch(this.onFetchError);
   };
 
   onSubmit = async (e) => {
     e.preventDefault();
-
     this.onFetchLoading();
 
-    const { subscriptions, password } = this.state;
+    const { password, subscriptionsChecked: subscriptions } = this.state;
 
-    const simpleMap = {};
-    subscriptions.forEach(({ _id, is_subscribed }) => {
-      simpleMap[_id] = is_subscribed;
-    });
+    const body = { subscriptions };
+    if (password.trim()) {
+      body.password = password;
+    }
 
     this.apiService
-      .changeUserProfile(password, simpleMap)
+      .changeUserProfile(body)
       .then(this.updateItems)
       .catch(this.onError);
   };
 
 
   render() {
-    const { subscriptions, password, loading, error } = this.state;
+    const { subscriptions, subscriptionsChecked, password, loading, error } = this.state;
+
+    subscriptions.forEach((item) => {
+      if (subscriptionsChecked.includes(item._id)) {
+        item.is_subscribed = true;
+      }
+    });
 
     const checkboxes = subscriptions.map(({ _id, is_subscribed, site, section }) => {
       return (

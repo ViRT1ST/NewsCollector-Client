@@ -2,7 +2,7 @@ import { getUserTokenFromCookies } from './common';
 
 export default class ApiService {
 
-  _apiBase = 'http://localhost:7002';
+  _apiBase = 'http://localhost:7733/api';
 
   async _operateWithServer(path, method, body) {
     const url = `${this._apiBase}${path}`;
@@ -12,7 +12,7 @@ export default class ApiService {
       body: body ? JSON.stringify(body) : null,
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': getUserTokenFromCookies(),
+        'Authorization': `Bearer ${getUserTokenFromCookies()}`,
       },
     };
 
@@ -27,46 +27,50 @@ export default class ApiService {
   }
 
   getUnreadedNews = async () => {
-    return this._operateWithServer('/api/articles/unreaded');
+    return this._operateWithServer('/articles/unreaded');
   };
 
   getSavedNews = async () => {
-    return this._operateWithServer('/api/articles/saved');
+    return this._operateWithServer('/articles/saved');
   };
 
+  getSources = async () => {
+    return this._operateWithServer('/sources');
+  };
+
+  // ???
   getUserBaseInfo = async () => {
-    return this._operateWithServer('/api/users/me/info');
+    return this._operateWithServer('/users/me');
   };
 
   getUserProfile = async () => {
-    return this._operateWithServer('/api/users/me/profile');
+    return this._operateWithServer('/users/me');
   };
 
-  changeUserProfile = async (password, subscriptions) => {
-    const body = { password, subscriptions };
-    return this._operateWithServer('/api/users/me/profile', 'PUT', body);
+  changeUserProfile = async (body) => {
+    return this._operateWithServer('/users/me', 'PATCH', body);
   };
 
   loginUser = async (email, password) => {
     const body = { email, password };
-    return this._operateWithServer('/api/users/login', 'POST', body);
+    return this._operateWithServer('/users/login', 'POST', body);
   };
 
   registerUser = async (email, password) => {
     const body = { email, password };
-    return this._operateWithServer('/api/users/register', 'POST', body);
+    return this._operateWithServer('/users', 'POST', body);
   };
 
-  saveUnreadedArticle = (id) => {
-    this._operateWithServer(`/api/articles/unreaded/save/${id}`, 'PUT');
+  saveUnreadedArticle = (_id) => {
+    this._operateWithServer(`/articles/${_id}/save`, 'PATCH');
   };
 
-  hideUnreadedArticle = (id) => {
-    this._operateWithServer(`/api/articles/unreaded/hide/${id}`, 'PUT');
+  hideUnreadedArticle = (_id) => {
+    this._operateWithServer(`/articles/${_id}/hide`, 'PATCH');
   };
 
-  hideSavedArticle = (id) => {
-    this._operateWithServer(`/api/articles/saved/hide/${id}`, 'PUT');
+  hideSavedArticle = (_id) => {
+    this._operateWithServer(`/articles/${_id}/hide`, 'PATCH');
   };
 
 }

@@ -88,12 +88,12 @@ export default class PageArticles extends Component {
     }
 
     if (count) {
-      const articleItems = articles.map(({ _id, date, site, section, title, url }) => {
+      const articleItems = articles.map(({ _id, createdAt, site, section, title, url }) => {
         return (
           <ArticleItem
             key={_id}
-            id={_id}
-            date={date}
+            _id={_id}
+            createdAt={createdAt}
             site={site}
             section={section}
             title={title}

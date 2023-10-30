@@ -23,8 +23,8 @@ function PageAuth({ apiMethod, formTitle, buttonText, antonymLink, antonymText }
     try {
       const json = await apiMethod(userInput.email, userInput.password);
 
-      if (json.error) {
-        setApiError(json.error);
+      if (!json.success) {
+        setApiError(json.message);
       }
 
       if (json.data) {

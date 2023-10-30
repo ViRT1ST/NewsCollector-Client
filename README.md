@@ -8,7 +8,7 @@ News Collector
 - Server - rest-api для взаимодействия с БД.
 
 Использованные технологии: React, Express, MongoDB.\
-Выложено на GitHub чисто для портфолио.
+Выложено на GitHub для портфолио.
 
 ## Скрины фронта (desktop & mobile)
 

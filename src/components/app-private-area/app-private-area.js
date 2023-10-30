@@ -53,7 +53,7 @@ export default class AppPrivateArea extends Component {
   authenticateUser = (data) => {
     const cookieToken = new Cookies().get('token');
     const cookiePayload = getPayloadFromJwtToken(cookieToken);
-    return cookiePayload.id === data._id;
+    return cookiePayload._id === data._id;
   };
 
   onFetchSuccess = (data) => {
@@ -72,8 +72,8 @@ export default class AppPrivateArea extends Component {
     try {
       const json = await this.apiService.getUserBaseInfo();
 
-      if (json.error) {
-        this.onFetchError(json.error);
+      if (!json.success) {
+        this.onFetchError(json.message);
       }
 
       if (json.data) {
@@ -117,7 +117,7 @@ export default class AppPrivateArea extends Component {
 }
 
 AppPrivateArea.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.shape),
+  children: PropTypes.element,
 };
 
 
