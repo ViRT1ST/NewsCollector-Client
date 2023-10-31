@@ -38,7 +38,6 @@ export default class ApiService {
     return this._operateWithServer('/sources');
   };
 
-  // ???
   getUserBaseInfo = async () => {
     return this._operateWithServer('/users/me');
   };

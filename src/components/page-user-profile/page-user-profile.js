@@ -10,7 +10,6 @@ export default class PageUserProfile extends Component {
 
   state = {
     subscriptions: [],
-    subscriptionsChecked: [],
     password: '',
     loading: true,
     error: false
@@ -23,18 +22,17 @@ export default class PageUserProfile extends Component {
   }
 
   onCheckboxClick = (e) => {
-    let { subscriptionsChecked } = this.state;
+    const { subscriptions } = this.state;
 
-    if (e.target.checked) {
-      subscriptionsChecked.push(e.target.id);
-    } else {
-      subscriptionsChecked = subscriptionsChecked.filter((item) => {
-        return item !== e.target.id;
-      });
-    }
+    const newArray = subscriptions.map((item) => {
+      if (item._id === e.target.name) {
+        item.isSubscribed = e.target.checked;
+      }
+      return item;
+    });
 
     this.setState({
-      subscriptionsChecked
+      subscriptions: newArray
     });
   };
 
@@ -62,10 +60,9 @@ export default class PageUserProfile extends Component {
   };
 
   onFetchLoaded = (json) => {
-    // console.log(json.data);
+    console.log(json.data.subscriptions);
     this.setState({
-      subscriptionsChecked: json.data.user.subscriptions,
-      subscriptions: json.data.sources,
+      subscriptions: json.data.subscriptions,
       password: '',
       loading: false
     });
@@ -74,60 +71,23 @@ export default class PageUserProfile extends Component {
   updateItems = () => {
     this.onFetchLoading();
 
-    let userData = {};
-    let sourcesData = {};
-    const allData = { data: {} };
-
-    const getUser = () => {
-      return new Promise((resolve, reject) => {
-        this.apiService.getUserProfile()
-          .then((data) => {
-            userData = data;
-            resolve();
-          })
-          .catch(() => {
-            reject();
-          });
-      });
-    };
-
-    const getSources = () => {
-      return new Promise((resolve, reject) => {
-        this.apiService.getSources()
-          .then((data) => {
-            sourcesData = data;
-            resolve();
-          })
-          .catch(() => {
-            reject();
-          });
-      });
-    };
-
-    Promise.all([getUser(), getSources()])
-      .then(() => {
-        console.log('Все промисы выполнились успешно.');
-        allData.data.user = userData.data;
-        allData.data.sources = sourcesData.data;
-        this.onFetchLoaded(allData);
-      })
-      .catch((error) => {
-        console.log('Не все промисы выполнились успешно.');
-        this.onFetchError(error);
-      });
-
-    // this.apiService.getUserProfile()
-    //   .then(this.onFetchLoaded)
-    //   .catch(this.onFetchError);
+    this.apiService.getUserProfile()
+      .then(this.onFetchLoaded)
+      .catch(this.onFetchError);
   };
 
   onSubmit = async (e) => {
     e.preventDefault();
     this.onFetchLoading();
 
-    const { password, subscriptionsChecked: subscriptions } = this.state;
+    const { password, subscriptions } = this.state;
 
-    const body = { subscriptions };
+    const checkedIds = subscriptions
+      .filter((item) => item.isSubscribed)
+      .map((item) => item._id);
+
+    const body = { subscriptions: checkedIds };
+
     if (password.trim()) {
       body.password = password;
     }
@@ -140,15 +100,9 @@ export default class PageUserProfile extends Component {
 
 
   render() {
-    const { subscriptions, subscriptionsChecked, password, loading, error } = this.state;
+    const { subscriptions, password, loading, error } = this.state;
 
-    subscriptions.forEach((item) => {
-      if (subscriptionsChecked.includes(item._id)) {
-        item.is_subscribed = true;
-      }
-    });
-
-    const checkboxes = subscriptions.map(({ _id, is_subscribed, site, section }) => {
+    const checkboxes = subscriptions.map(({ _id, site, section, isSubscribed }) => {
       return (
         <li key={_id}>
           <input
@@ -156,7 +110,7 @@ export default class PageUserProfile extends Component {
             type="checkbox"
             id={_id}
             name={_id}
-            defaultChecked={is_subscribed}
+            defaultChecked={isSubscribed}
             onClick={this.onCheckboxClick}
           />
           <label htmlFor={_id}>{site} &middot; {section}</label>
