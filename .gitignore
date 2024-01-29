@@ -1,6 +1,7 @@
 # MY DATA
-# .env
+.env
 dist/
+package-lock.json
 
 # Logs
 logs

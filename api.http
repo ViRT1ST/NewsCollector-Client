@@ -1,0 +1,153 @@
+# ================================================
+# Variables
+# ================================================
+
+@baseUrl = http://localhost:7733/api
+
+@user1 = games@gmail.com
+@password1 = 640480zZ
+@token1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTQyMTEwMDIsIl9pZCI6IjY1M2U4NTRjODdmNTIyY2Q5OGI0ODA5NSIsImlhdCI6MTcwNjQzNTAwMn0.aU2iLo6T8bmjeXH1jymO6Z3WvVvTT45hIPU1WNDk81Y
+
+### ==============================================
+# Articles | Get unreaded
+# ================================================
+
+GET {{baseUrl}}/articles/unreaded
+Content-Type: application/json
+Authorization: Bearer {{token1}}
+
+### ==============================================
+# Articles | Get saved
+# ================================================
+
+GET {{baseUrl}}/articles/saved
+Content-Type: application/json
+Authorization: Bearer {{token1}}
+
+### ==============================================
+# Articles | Save 
+# ================================================
+
+PATCH {{baseUrl}}/articles/65af8e1f5fd630622e616b04/save
+Content-Type: application/json
+Authorization: Bearer {{token1}}
+
+### ==============================================
+# Articles | Delete 
+# ================================================
+
+PATCH {{baseUrl}}/articles/65af8e1f5fd630622e616b04/hide
+Content-Type: application/json
+Authorization: Bearer {{token1}}
+
+### ==============================================
+# Articles | Create (only for spider) 
+# ================================================
+
+POST {{baseUrl}}/articles
+Content-Type: application/json
+Authorization: Bearer SPIDER_TOKEN
+[
+  {
+    "url": "https://dtf.ru/gameindustry/2450461",
+    "title": "Fortnite вернётся на iOS ",
+    "site": "DTF",
+    "section": "Индустрия",
+    "sourceId": "653c0e405c01c8a5f7fcf840"
+  }
+]
+
+### ==============================================
+# Articles | Get all urls (only for spider) 
+# ================================================
+
+GET {{baseUrl}}/articles/urls
+Content-Type: application/json
+Authorization: Bearer SPIDER_TOKEN
+
+### ==============================================
+# Articles | Delete old articles (only for spider) 
+# ================================================
+
+DELETE {{baseUrl}}/articles/months/3
+Content-Type: application/json
+Authorization: Bearer SPIDER_TOKEN
+
+### ==============================================
+# Sources | Get list (only for spider) 
+# ================================================
+
+GET {{baseUrl}}/sources
+Content-Type: application/json
+Authorization: Bearer SPIDER_TOKEN
+
+### ==============================================
+# User | Login by login:pass
+# ================================================
+
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+{
+  "email": "{{user1}}",
+  "password": "{{password1}}"
+}
+
+### ==============================================
+# User | Create by login:pass
+# ================================================
+
+POST {{baseUrl}}/users
+Content-Type: application/json
+{
+  "email": "demy@outlook.com",
+  "password": "password123!"
+}
+
+### ==============================================
+# User | Get info
+# ================================================
+
+GET {{baseUrl}}/users/me
+Content-Type: application/json
+Authorization: Bearer {{token1}}
+
+### ==============================================
+# User | Change data 
+# ================================================
+
+PATCH {{baseUrl}}/users/me
+Content-Type: application/json
+Authorization: Bearer TOKEN
+
+{
+  "email": "demy777@outlook.com",
+  "password": "password123!777",
+  "subscriptions": []
+}
+
+### ==============================================
+# User | Logout (delete current token)
+# ================================================
+
+POST {{baseUrl}}/users/logout
+Content-Type: application/json
+Authorization: Bearer TOKEN
+
+### ==============================================
+# User | Logout (delete all tokens)
+# ================================================
+
+POST {{baseUrl}}/users/logout-all
+Content-Type: application/json
+Authorization: Bearer TOKEN
+
+### ==============================================
+# User | Delete
+# ================================================
+
+DELETE {{baseUrl}}/users/me
+Content-Type: application/json
+Authorization: Bearer TOKEN
+
+
+    
