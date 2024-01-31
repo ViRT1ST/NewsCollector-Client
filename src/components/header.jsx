@@ -1,9 +1,8 @@
 import tw from 'tailwind-styled-components';
 import { NavLink as RouterLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { LuMenu } from 'react-icons/lu';
-
 import { useDispatch } from 'react-redux';
+import { LuMenu } from 'react-icons/lu';
 
 import { articlesApi, usersApi } from '../store/apis/backend';
 
@@ -44,7 +43,7 @@ const Header = () => {
     <FixedHeader>
     
       <LogoAndButtons>
-        <LogoLink href="/">News Collector</LogoLink>
+        <LogoLink to="/">News Collector</LogoLink>
         <MenuButton onClick={onMenuButtonClick}><LuMenu /></MenuButton>
       </LogoAndButtons>
       
@@ -79,7 +78,7 @@ const LogoAndButtons = tw.div`
   w-full h-12 px-3 flex-grow 
 `;
 
-const LogoLink = tw.a`
+const LogoLink = tw(RouterLink)`
   text-lt-nav-fg/70 dark:text-dt-nav-fg/60
 
   block font-lato font-normal text-[1.3rem] uppercase

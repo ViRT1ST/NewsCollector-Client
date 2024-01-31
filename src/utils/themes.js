@@ -14,11 +14,9 @@ const forceLightTheme = () => {
 };
 
 const toggleTheme = () => {
-  if (localStorage.getItem('theme') === dark) {
-    forceLightTheme();
-  } else {
-    forceDarkTheme();
-  }
+  localStorage.getItem('theme') === dark
+    ? forceLightTheme()
+    : forceDarkTheme();
 };
 
 const restorePageThemeFromStorage = () => {

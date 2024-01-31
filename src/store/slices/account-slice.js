@@ -4,7 +4,6 @@ const initialState = {
   _id: null,
   email: null,
   token: null,
-  subscriptions: []
 };
 
 const accountSlice = createSlice({
@@ -15,7 +14,6 @@ const accountSlice = createSlice({
       state._id = action.payload._id;
       state.email = action.payload.email;
       state.token = action.payload.token;
-      state.subscriptions = action.payload.subscriptions;
     },
     removeAccountData() {
       return initialState;

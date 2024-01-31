@@ -5,20 +5,23 @@ import tw from 'tailwind-styled-components';
 import { convertDateToAgo, hideElementWithCollapsing } from '../utils/articles';
 import { useSaveArticleMutation, useDeleteArticleMutation } from '../store';
 
-const ArticleItem = ({ article }) => {
+const ArticleItem = ({ article, updateCount, page }) => {
   const { _id, createdAt, site, section, title, url } = article;
+  const isSavedPage = page === 'saved';
 
   const element = useRef(null);
-
+  
   const [saveArticle, saveResults] = useSaveArticleMutation();
   const [deleteArticle, deleteResults] = useDeleteArticleMutation();
   
   const onDeleteClick = () => {
+    updateCount();
     deleteArticle(_id);
     hideElementWithCollapsing(element);
   };
 
   const onSaveClick = () => {
+    updateCount();
     saveArticle(_id);
     hideElementWithCollapsing(element);
   };
@@ -31,11 +34,11 @@ const ArticleItem = ({ article }) => {
           <Time>{convertDateToAgo(createdAt)}</Time>
           <Source>{site} &middot; {section}</Source>
           <Actions>
-            <Button onClick={onSaveClick}>
+            <Button onClick={onSaveClick} $isSavedPage={isSavedPage}>
               <ButtonIcon><FaHeart /></ButtonIcon>
               <ButtonText>SAVE</ButtonText>
             </Button>
-            <Button $type="danger" onClick={onDeleteClick}>
+            <Button onClick={onDeleteClick} $type="danger">
               <ButtonIcon><FaTrash /></ButtonIcon>
               <ButtonText>DELETE</ButtonText>
             </Button>
@@ -109,6 +112,8 @@ const Button = tw.button`
     hover:bg-dt-btn-danger-bg hover:dark:bg-dt-btn-danger-bg
     hover:border-dt-btn-danger-bg hover:dark:border-dt-btn-danger-bg
   `)}
+
+  ${(p) => (p.$isSavedPage && `invisible`)}
   
   ml-1.5 md:ml-2
   py-1 md:py-1

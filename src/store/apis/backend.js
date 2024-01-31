@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const apiBaseUrl = 'http://localhost:7733/api';
+
 const getHeaders = (headers, getState) => {
   const token = getState().account.token;
 
@@ -12,7 +14,7 @@ const getHeaders = (headers, getState) => {
 const articlesApi = createApi({
   reducerPath: 'rtkq_articles',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:7733/api',
+    baseUrl: apiBaseUrl,
     prepareHeaders: (headers, { getState }) => {
       return getHeaders(headers, getState);
     },
@@ -51,7 +53,7 @@ const articlesApi = createApi({
 const usersApi = createApi({
   reducerPath: 'rtkq_users',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:7733/api',
+    baseUrl: apiBaseUrl,
     prepareHeaders: (headers, { getState }) => {
       return getHeaders(headers, getState);
     },

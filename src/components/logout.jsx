@@ -14,7 +14,7 @@ const Logout = () => {
   useEffect(() => {
     logoutUser();
 
-    removeCookies(['_id', 'email', 'token', 'subscriptions']);
+    removeCookies(['_id', 'email', 'token']);
     dispatch(removeAccountData());
 
     navigate('/auth/login');

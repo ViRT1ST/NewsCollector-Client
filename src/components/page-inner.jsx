@@ -6,19 +6,19 @@ import Footer from './footer';
 const PageInner = ({ privateRoute = true, children }) => {
   return (
     <Container>
-      {privateRoute && <Header /> }
+      {privateRoute && <Header />}
 
       <Limiter>
         {children}
       </Limiter>
 
-      {privateRoute && <Footer /> }
+      {privateRoute && <Footer />}
     </Container>
   );
 };
 
 const Container = tw.div`
-  bg-lt-page-bg   dark:bg-none dark:bg-dt-page-bg 
+  bg-lt-page-bg dark:bg-dt-page-bg 
 
   flex flex-col w-full h-full min-h-screen pt-12
 `;

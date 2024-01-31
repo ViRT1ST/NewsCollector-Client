@@ -115,6 +115,7 @@ const ProfilePage = () => {
             <PasswordInput
               placeholder="Password (at least 8 characters)"
               type="password"
+              name="password"
               value={passwordInput}
               onChange={onPasswordInput}
             />

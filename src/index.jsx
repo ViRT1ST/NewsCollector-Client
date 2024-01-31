@@ -1,6 +1,5 @@
 import './assets/styles/index.css';
 
-// import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
