@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import ArticlesPage from './pages/articles-page';
+import UnreadedPage from './pages/articles/unreaded-page';
+import SavedPage from './pages/articles/saved-page';
 import AuthPage from './pages/auth-page';
 import E404Page from './pages/e404-page';
 import ProfilePage from './pages/profile-page';
@@ -33,8 +34,8 @@ const App = () => {
         <Route path="/auth/logout" element={<Logout />} />
 
         {/* Private routes */}
-        <Route path="/u/unreaded" element={<ArticlesPage page="unreaded" />} />
-        <Route path="/u/saved" element={<ArticlesPage page="saved"/>} />
+        <Route path="/u/unreaded" element={<UnreadedPage />} />
+        <Route path="/u/saved" element={<SavedPage />} />
         <Route path="/u/profile" element={<ProfilePage />} />
 
         {/* Service routes */}
