@@ -74,7 +74,7 @@ const Header = tw.div`
   px-2 md:px-3.5
 `;
 
-const Time = tw.span`
+const Time = tw.time`
   text-lt-article-fg-time dark:text-dt-article-fg-time
 
   pr-3

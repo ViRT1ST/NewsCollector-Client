@@ -53,6 +53,27 @@ export default {
       'opensans': ['Open Sans', 'system-ui', 'sans-serif'],
       'lato': ['Lato', 'system-ui', 'sans-serif'],
     },
+
+    // animation class
+    animation: {
+      'fade-in-out': 'fadeInOut 4s ease-in-out',
+      'fade-in': 'fadeIn 1s ease-in-out',
+    },
+
+    // actual animation
+    keyframes: {
+      fadeInOut: {
+        '0%': { opacity: 0 },
+        '5%': { opacity: 1 },
+        '80%': { opacity: 1 },
+        '100%': { opacity: 0 },
+      },
+      fadeIn: {
+        '0%': { opacity: 0 },
+        '5%': { opacity: 0 },
+        '100%': { opacity: 1 },
+      },
+    },
   },
   plugins: [],
 };

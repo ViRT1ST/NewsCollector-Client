@@ -126,8 +126,7 @@ const ProfilePage = () => {
   
           <FormSubmitButton type="submit">Save changes</FormSubmitButton>
 
-          {isUpdated && <UpdateMessage>Your data was updated.</UpdateMessage>}
-
+          {isUpdated && <UpdateMessage>Your data was updated!</UpdateMessage>}
         </Form>
       );
     }
@@ -187,7 +186,7 @@ const FormSubmitButton = tw.button`
 `;
 
 const UpdateMessage = tw.span`
-  block mt-1 font-medium
+  block mt-1 font-medium opacity-0 animate-fade-in-out
 `;
 
 export default ProfilePage;

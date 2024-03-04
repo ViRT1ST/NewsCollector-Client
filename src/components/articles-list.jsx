@@ -14,43 +14,38 @@ const ArticlesPage = ({ page, noArticlesMsg }) => {
   const { data, error, isFetching, isSuccess } = useFetchArticlesQuery(page);
 
   useEffect(() => {
-    isSuccess && setCount(data?.data?.length || 0);
+    if (isSuccess) {
+      setCount(data?.data?.length || 0);
+    }
   }, [data]);
 
   const updateCount = () => {
     setCount((current) => current - 1);
   };
 
-  const createArticlesList = (arr = []) => {
-    const articles = arr.map((article) => (
-      <li key={article._id}>
-        <ArticleItem article={article} updateCount={updateCount} page={page}/>
-      </li>
-    ));
+  if (isFetching) {
+    return <LoadingSpinner />;
+  }
 
-    return <ul>{articles}</ul>;
-  };
+  if (error) {
+    const code = error?.status;
+    const message = error?.data?.message;
+    return <ErrorMessage code={code} message={message} />;
+  }
 
-  const renderContent = () => {
-    if (isFetching) {
-      return <LoadingSpinner />;
-    }
+  if (count === 0) {
+    return <NoNewsMessage>{noArticlesMsg}</NoNewsMessage>;
+  }
 
-    if (error) {
-      const code = error?.status;
-      const message = error?.data?.message;
-      return <ErrorMessage code={code} message={message} />;
-    }
-
-    if (count === 0) {
-      return <NoNewsMessage>{noArticlesMsg}</NoNewsMessage>;
-    }
-
-    return createArticlesList(data?.data);
-    
-  };
-
-  return renderContent();
+  return (
+    <ul>
+      {data.data.map((article) => (
+        <li key={article._id}>
+          <ArticleItem article={article} updateCount={updateCount} page={page}/>
+        </li>
+      ))}
+    </ul>
+  ); 
 };
 
 const NoNewsMessage = tw.p`
@@ -58,7 +53,9 @@ const NoNewsMessage = tw.p`
 
   mt-8 px-6
   font-roboto text-xl text-center
-  whitespace-pre-line
+  whitespace-pre
+
+  animate-fade-in
 `;
 
 export default ArticlesPage;
