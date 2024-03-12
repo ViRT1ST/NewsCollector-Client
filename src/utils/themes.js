@@ -1,3 +1,5 @@
+'use client';
+
 const dark = 'dark';
 const light = 'light';
 

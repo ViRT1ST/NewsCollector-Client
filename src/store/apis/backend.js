@@ -4,7 +4,6 @@ const apiBaseUrl = 'http://localhost:7733/api';
 
 const getHeaders = (headers, getState) => {
   const token = getState().account.token;
-
   headers.set('Content-Type', 'application/json');
   token && headers.set('Authorization', `Bearer ${token}`);  
   

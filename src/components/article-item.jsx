@@ -7,6 +7,7 @@ import { useSaveArticleMutation, useDeleteArticleMutation } from '../store';
 
 const ArticleItem = ({ article, updateCount, page }) => {
   const { _id, createdAt, site, section, title, url } = article;
+  
   const isSavedPage = page === 'saved';
 
   const element = useRef(null);

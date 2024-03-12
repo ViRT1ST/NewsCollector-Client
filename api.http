@@ -14,7 +14,7 @@
 
 GET {{baseUrl}}/articles/unreaded
 Content-Type: application/json
-Authorization: Bearer {{token1}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgwMzM2OTgsIl9pZCI6IjY1M2U4NTRjODdmNTIyY2Q5OGI0ODA5NSIsImlhdCI6MTcxMDI1NzY5OH0.Rd3uQhBQ6lrRAEYFshEdkVj-q34UGq34dM1B5xUQcKE
 
 ### ==============================================
 # Articles | Get saved

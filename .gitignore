@@ -1,5 +1,4 @@
-# MY DATA
-.env
+# My Data
 dist/
 package-lock.json
 

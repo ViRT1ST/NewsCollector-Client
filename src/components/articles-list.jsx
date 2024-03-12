@@ -8,8 +8,7 @@ import LoadingSpinner from '../components/loading-spinner';
 import ErrorMessage from '../components/error-message';
 
 const ArticlesPage = ({ page, noArticlesMsg }) => {
-  // important: must be null, not 0
-  const [count, setCount] = useState(null);
+  const [count, setCount] = useState();
 
   const { data, error, isFetching, isSuccess } = useFetchArticlesQuery(page);
 
